@@ -5,18 +5,26 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 { 
     public Animator animator;
-    //  private void  OnCollisionEnter2D(Collision2D collision) {
-    //      Debug.Log("Collision"+ collision.gameObject.name);
-    //  }
+    public float speed;
+    private BoxCollider2D Collider;
      private void Update() {
-        float speed=Input.GetAxisRaw("Horizontal");
-        animator.SetFloat("Speed",Mathf.Abs(speed));
+        float horizontal=Input.GetAxisRaw("Horizontal");
+        MoveCharacter(horizontal);
+        PlayMovementAnimation(horizontal);
+    }
+    private void MoveCharacter(float horizontal){
+        Vector3 position=transform.position;
+        position.x+=horizontal * speed * Time.deltaTime;
+        transform.position=position;
+    }
+    private void PlayMovementAnimation(float horizontal){
+        animator.SetFloat("Speed",Mathf.Abs(horizontal));
         Vector3 scale=transform.localScale;
-        if(speed<0){
+        if(horizontal<0){
               scale.x=-1f*Mathf.Abs(scale.x);        
-        }else if(speed>0){
+        }else if(horizontal>0){
             scale.x=1f*Mathf.Abs(scale.x);
         } 
-           transform.localScale=scale;
+        transform.localScale=scale;
     }
 }
