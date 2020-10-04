@@ -6,11 +6,9 @@ public class PlayerController : MonoBehaviour
 { 
     public Animator animator;
     public float speed;
-    public float jump;
+    public float Jump;
     private Rigidbody2D rbd;
-    private BoxCollider2D Collider;
-    private void Awake() {
-        Debug.Log("Plyer get started");
+    private void  FixedUpdate() {
         rbd=gameObject.GetComponent<Rigidbody2D>();
     }
      private void Update() {
@@ -21,10 +19,10 @@ public class PlayerController : MonoBehaviour
     }
     private void MoveCharacter(float horizontal,float vertical){
         Vector3 position=transform.position;
-        position.x+=horizontal * speed * Time.deltaTime;
+        position.x+=horizontal * speed *Time.deltaTime;
         transform.position=position;
         if(vertical>0){
-           rbd.AddForce(new Vector2(0f,jump),ForceMode2D.Force);
+           rbd.velocity=new Vector2(rbd.velocity.x,Jump);
         }
     }
     private void PlayMovementAnimation(float horizontal,float vertical){
