@@ -8,6 +8,11 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public float Jump;
     private Rigidbody2D rbd;
+    public ScoreController scorecontroller;
+    public void PickUpKey(){
+        Debug.Log("Player Picked Up");
+        scorecontroller.Increase(10);
+    }
     private void  FixedUpdate() {
         rbd=gameObject.GetComponent<Rigidbody2D>();
     }
