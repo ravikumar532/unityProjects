@@ -222,6 +222,7 @@ MonoBehaviour:
   speed: 5
   Jump: 3
   scorecontroller: {fileID: 0}
+  enemycontroller: {fileID: 0}
 --- !u!61 &245052149
 BoxCollider2D:
   m_ObjectHideFlags: 0

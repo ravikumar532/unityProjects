@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 { 
@@ -9,9 +10,17 @@ public class PlayerController : MonoBehaviour
     public float Jump;
     private Rigidbody2D rbd;
     public ScoreController scorecontroller;
+    public EnemyController enemycontroller;
     public void PickUpKey(){
         Debug.Log("Player Picked Up");
         scorecontroller.Increase(10);
+    }
+    public void KillPlayer(){
+        Debug.Log("Player killed by the enemy");
+        ReloadScene();
+    }
+    private void ReloadScene(){
+        SceneManager.LoadScene(0);
     }
     private void  FixedUpdate() {
         rbd=gameObject.GetComponent<Rigidbody2D>();
