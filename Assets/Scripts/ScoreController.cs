@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -18,6 +19,6 @@ public class ScoreController : MonoBehaviour
         RefreshUI();
     }
     private void RefreshUI(){
-        scoreText.text="Score"+score;
+        scoreText.text="Score:"+score;
     }
 }
