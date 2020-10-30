@@ -11,26 +11,39 @@ public class PlayerController : MonoBehaviour
     public Animator animator;
     public  float speed;
     private Rigidbody2D rbd;
-    public float Jump;
+    private BoxCollider2D box;
     public  KeyController KeyController;
     public ScoreController scorecontroller;
     public EnemyController enemycontroller;
-    public GameController gamecontroller;
-    public GameControllerScript gamecontrollerscript;
+    public GameoverController gameovercontroller;
+    //varibles  for  grounding system
+    public float jumpspeed;
+    public LayerMask  groundelayer;
+    public bool grounded=true;
+    private void OnCollisionEnter2D(Collision2D collision){
+        grounded=true;
+    }
+    private void  Isgrounded(){
+        if(grounded==true)
+        {
+            rbd.velocity=new Vector3(rbd.velocity.x,jumpspeed);
+            grounded=false;
+        }
+    }
     public void PickUpKey(){
         Debug.Log("Player Picked  Key");
         scorecontroller.Increase(10);
     }
     public void KillPlayer(){
         Debug.Log("Player killed by  the Enemy");
-        gamecontroller.PlayerDie();
+        gameovercontroller.PlayerDie();
         this.enabled=false;
     }
     private void Awake() {
         Debug.Log("Player  is  Awake");
         rbd=gameObject.GetComponent<Rigidbody2D>();
     }
-    private void Update() {
+    private void Update() {   
     float horizontal=Input.GetAxisRaw("Horizontal");
     float vertical=Input.GetAxisRaw("Jump");
      PlayerMovementAnimation(horizontal,vertical);
@@ -43,9 +56,9 @@ public class PlayerController : MonoBehaviour
       transform.position=position;
     //move character vertical;
     if(vertical>0){
-         rbd.velocity=new Vector2(rbd.velocity.x,Jump);
+        Isgrounded();
     }
-    }
+}
     private void  PlayerMovementAnimation(float horizontal,float vertical)
     {
         animator.SetFloat("Speed",Mathf.Abs(horizontal));
@@ -64,5 +77,7 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Jump",false);
         }
      }
+
+     
 }
 

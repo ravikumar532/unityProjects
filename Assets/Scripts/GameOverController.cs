@@ -1,20 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
-public class GameOverController : MonoBehaviour
-{ 
-    public Button RestButton;
-    public GameObject gameobject;
+using UnityEngine.SceneManagement;
+public class GameoverController : MonoBehaviour
+{
+   public Button ButtonRestart;
+   
     private void Awake() {
-        RestButton.onClick.AddListener(ReloadScene);
+     ButtonRestart.onClick.AddListener(ReloadLevel);
     }
-    public void PlayerDie(){
-         gameobject.SetActive(true);
+    public  void PlayerDie(){
+
+        gameObject.SetActive(true);
     }
-    private void ReloadScene(){
-        SceneManager.LoadScene(1);
+    public void ReloadLevel(){
+        Scene scene=SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.buildIndex);
     }
 }

@@ -8,9 +8,6 @@ public class EnemyController : MonoBehaviour
     public float rayDist;
     private bool movingRight;
     public Transform groundDetect;
-//     void OnTriggerEnter2D(Collider2D trig) {
-//        GameControllerScript.health-=1;
-//    }3
     private void Update() {
         transform.Translate(Vector2.right*speed*Time.deltaTime);
        RaycastHit2D groundCheck=Physics2D.Raycast(groundDetect.position,Vector2.down,rayDist);
