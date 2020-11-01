@@ -5,17 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 { 
-    // private void OnCollisionEnter2D(Collision2D collision) {
-    //     Debug.Log("collision:"+collision.gameObject.name);
-    // }
     public Animator animator;
     public  float speed;
     private Rigidbody2D rbd;
-    private BoxCollider2D box;
     public  KeyController KeyController;
     public ScoreController scorecontroller;
     public EnemyController enemycontroller;
     public GameoverController gameovercontroller;
+    public GameObject[] Heart;
+    int lifeLeft=1;
+    Vector2 checkpoint=new Vector2(0f,0f);
+    private float restartPosition=-10.0f;
     //varibles  for  grounding system
     public float jumpspeed;
     public LayerMask  groundelayer;
@@ -35,9 +35,16 @@ public class PlayerController : MonoBehaviour
         scorecontroller.Increase(10);
     }
     public void KillPlayer(){
-        Debug.Log("Player killed by  the Enemy");
-        gameovercontroller.PlayerDie();
-        this.enabled=false;
+        if(lifeLeft >= 0)
+        {
+            Heart[lifeLeft--].SetActive(false);
+            gameObject.transform.position = checkpoint;
+        }
+        else
+        {
+           gameovercontroller.PlayerDie();
+            this.enabled = false;
+        }   
     }
     private void Awake() {
         Debug.Log("Player  is  Awake");
@@ -46,15 +53,17 @@ public class PlayerController : MonoBehaviour
     private void Update() {   
     float horizontal=Input.GetAxisRaw("Horizontal");
     float vertical=Input.GetAxisRaw("Jump");
+
      PlayerMovementAnimation(horizontal,vertical);
      MoveCharacter(horizontal,vertical);
+     restartposition(restartPosition);
     }
     private void MoveCharacter(float horizontal,float vertical){
-    // Move character horizontally
+
       Vector3 position=transform.position;
       position.x +=horizontal*speed*Time.deltaTime;
       transform.position=position;
-    //move character vertical;
+
     if(vertical>0){
         Isgrounded();
     }
@@ -77,7 +86,17 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Jump",false);
         }
      }
-
-     
+      void restartposition( float restartPosition){
+         if(gameObject.transform.position.y<restartPosition){
+             if(lifeLeft>=0){
+                 Heart[lifeLeft--].SetActive(false);
+                 gameObject.transform.position=checkpoint;
+             }
+             else{
+                 gameovercontroller.PlayerDie();
+                 this.enabled=false;
+             }
+         }
+     }
 }
 
