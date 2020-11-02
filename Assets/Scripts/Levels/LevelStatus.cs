@@ -2,5 +2,6 @@
 
     Locked,
     Unlocked,
-    Completed
+    Completed,
+    Lobby
 }

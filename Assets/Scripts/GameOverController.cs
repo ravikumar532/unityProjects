@@ -6,8 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameoverController : MonoBehaviour
 {
    public Button ButtonRestart;
-   
-    private void Awake() {
+   private void Awake() {
      ButtonRestart.onClick.AddListener(ReloadLevel);
     }
     public  void PlayerDie(){

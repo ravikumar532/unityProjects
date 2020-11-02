@@ -15,7 +15,6 @@ public class LobbyController : MonoBehaviour
         levelselector.SetActive(true);
     }
     private void Reset(){
-        Debug.Log("Reset  the  games");
         PlayerPrefs.DeleteAll();
     }
     private void Exit(){

@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     public GameObject[] Heart;
     int lifeLeft=1;
     Vector2 checkpoint=new Vector2(0f,0f);
-    private float restartPosition=-10.0f;
+    private float restartPosition=-17.0f;
     //varibles  for  grounding system
     public float jumpspeed;
     public LayerMask  groundelayer;
@@ -31,7 +31,6 @@ public class PlayerController : MonoBehaviour
         }
     }
     public void PickUpKey(){
-        Debug.Log("Player Picked  Key");
         scorecontroller.Increase(10);
     }
     public void KillPlayer(){
@@ -47,7 +46,6 @@ public class PlayerController : MonoBehaviour
         }   
     }
     private void Awake() {
-        Debug.Log("Player  is  Awake");
         rbd=gameObject.GetComponent<Rigidbody2D>();
     }
     private void Update() {   
