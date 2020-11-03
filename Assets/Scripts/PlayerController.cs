@@ -23,14 +23,19 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision){
         grounded=true;
     }
+    private void Start() {
+        SoundManager.Instance.PlayMusic(global::Sounds.Music);
+    }
     private void  Isgrounded(){
         if(grounded==true)
         {
+            SoundManager.Instance.Play(Sounds.PlayerJump);
             rbd.velocity=new Vector3(rbd.velocity.x,jumpspeed);
             grounded=false;
         }
     }
     public void PickUpKey(){
+        SoundManager.Instance.PlayMusic(Sounds.touch);
         scorecontroller.Increase(10);
     }
     public void KillPlayer(){
@@ -47,6 +52,8 @@ public class PlayerController : MonoBehaviour
     }
     private void Awake() {
         rbd=gameObject.GetComponent<Rigidbody2D>();
+         SoundManager.Instance.PlayMusic(global::Sounds.Music);
+
     }
     private void Update() {   
     float horizontal=Input.GetAxisRaw("Horizontal");
@@ -57,7 +64,7 @@ public class PlayerController : MonoBehaviour
      restartposition(restartPosition);
     }
     private void MoveCharacter(float horizontal,float vertical){
-
+    //   SoundManager.Instance.Play(Sounds.PlayerMove);
       Vector3 position=transform.position;
       position.x +=horizontal*speed*Time.deltaTime;
       transform.position=position;

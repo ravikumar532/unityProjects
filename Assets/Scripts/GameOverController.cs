@@ -10,10 +10,13 @@ public class GameoverController : MonoBehaviour
      ButtonRestart.onClick.AddListener(ReloadLevel);
     }
     public  void PlayerDie(){
-
+        SoundManager.Instance.PlayMusic(Sounds.PlayerDeath);
         gameObject.SetActive(true);
+
     }
     public void ReloadLevel(){
+        SoundManager.Instance.PlayMusic(Sounds.Music);
+        SoundManager.Instance.Play(Sounds.ButtonClick);
         Scene scene=SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.buildIndex);
     }
